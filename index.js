@@ -1,23 +1,22 @@
-// index.js
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Middleware pour parser le JSON
-app.use(express.json());
+app.use(cors());           // Autorise les requêtes cross-origin
+app.use(express.json());   // Pour parser le JSON
 
-// Route principale
-app.get('/', (req, res) => {
-  res.send('Bonjour depuis Express!');
+// Route GET
+app.get('/api', (req, res) => {
+  res.json({ message: "Bonjour depuis Express !" });
 });
 
-// Exemple de route POST
-app.post('/data', (req, res) => {
+// Route POST
+app.post('/api/data', (req, res) => {
   console.log(req.body);
-  res.send('Données reçues !');
+  res.json({ status: "Données reçues !", data: req.body });
 });
 
-// Lancer le serveur
 app.listen(port, () => {
-  console.log(`Serveur démarré sur http://localhost:${port}`);
+  console.log(`Serveur démarré sur le port ${port}`);
 });

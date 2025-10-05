@@ -1,18 +1,4 @@
-# Node modules
 node_modules/
-
-# Logs
+.env
 logs/
 *.log
-npm-debug.log*
-
-# Env
-.env
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Build / dist (si tu en as)
-dist/
-build/
