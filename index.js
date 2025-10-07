@@ -1,20 +1,33 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import pool from './src/db.config.js';
+
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());           // Autorise les requêtes cross-origin
+app.use(cors({origin: "http://localhost:5173" }));         // Autorise les requêtes cross-origin
+
 app.use(express.json());   // Pour parser le JSON
 
-// Route GET
 app.get('/api', (req, res) => {
   res.json({ message: "Bonjour depuis Express !" });
 });
 
-// Route POST
 app.post('/api/data', (req, res) => {
   console.log(req.body);
   res.json({ status: "Données reçues !", data: req.body });
+});
+
+// test de connexion à la base de données
+app.get('/test-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json({ message: 'Connexion réussie !', time: result.rows[0].now });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur de connexion à la base' });
+  }
 });
 
 app.listen(port, () => {
