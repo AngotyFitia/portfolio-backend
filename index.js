@@ -6,7 +6,7 @@ import pool from './src/db.config.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors({origin: "http://localhost:5173" }));         // Autorise les requêtes cross-origin
+app.use(cors({origin: "https://portfolio-frontend-t1f1.vercel.app" }));         // Autorise les requêtes cross-origin
 
 app.use(express.json());   // Pour parser le JSON
 
