@@ -1,6 +1,9 @@
+import express from 'express';
+import cors from 'cors';
 import pool from './src/db.config.js';
-const express = require('express');
-const cors  = use(cors());
+
+// const express = require('express');
+// const cors  = use(cors())
 
 const app = express();
 const port = process.env.PORT || 3000;
