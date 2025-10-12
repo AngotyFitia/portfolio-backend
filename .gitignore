@@ -1,5 +1,11 @@
 node_modules/
 
+index.initial.js
+databaseconfig
+
+src/db.config.local.js
+
+
 .env
 logs/
 *.log
