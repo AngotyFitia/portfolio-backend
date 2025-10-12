@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: "https://portfolio-frontend-t1f1.vercel.app" }));
 app.use(express.json()); // Parser JSON
 
-// Configuration du moteur de vues
+// Configuration du moteur de vues(ok)
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
