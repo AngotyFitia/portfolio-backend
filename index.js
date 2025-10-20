@@ -2,9 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import path from "path";
 import { fileURLToPath } from "url";
-import testRoutes from './src/routes/test/test.routes.js';
+import expressLayouts from "express-ejs-layouts";
+import routes_position from './src/routes/admin/accueil/routes.position.js';
+import routes_description from './src/routes/admin/accueil/routes.description.js';
+import routes_utilisateur from './src/routes/admin/accueil/routes.utilisateur.js';
+import routes_parcours from './src/routes/admin/parcours/routes.etablissement.js';
+import accueil from './src/routes/admin/accueil/routes.utilisateur.js';
+import projets from './src/routes/admin/projets.js';
 import apiRoutes from './src/routes/api/api.routes.js';
-import adminRoutes from './src/routes/admin/admin.routes.js';
 
 
 const app = express();
@@ -16,16 +21,23 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: "https://portfolio-frontend-t1f1.vercel.app" }));
 app.use(express.json()); // Parser JSON
 
-// Configuration du moteur de vues(ok)
+// Configuration du moteur de vues
+app.use(expressLayouts);
+app.set("layout", "layouts/main");
+
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 
 
-app.use('/test', testRoutes);
+app.use('/', accueil);
+app.use('/projets', projets);
 app.use('/apidb', apiRoutes);
-app.use('/admin', adminRoutes);
+app.use('/testapi', routes_position);
+app.use('/testapi', routes_utilisateur);
+app.use('/testapi', routes_description);
+app.use('/testapi', routes_parcours);
 
 // Démarrer le serveur
 app.listen(port, () => {

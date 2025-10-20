@@ -1,0 +1,226 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <h2 class="page-title">Parcours</h2>
+        <p> <a href="/testapi/parcours">Parcours</a></p>
+        <div class="row">
+          <!-- simple table -->
+          <div class="col-md-12 my-4">
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex align-items-end flex-wrap gap-2">
+                    <!-- Barre de recherche -->
+                    <div class="form-group mb-3">
+                      <label for="example-email">Qu'est ce que vous recherchez ?</label>
+                      <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Tapez ici...">
+                    </div>    
+                    <div class="form-group mb-3" style="text-align: center;">
+                        <label for="custom-select">Type de parcours</label>
+                        <select class="custom-select" id="custom-select" style="text-align: center;">
+                          <option selected>--Choisir le type parcours--</option>
+                          <option value="1">Académique</option>
+                          <option value="2">Professionnelle</option>
+                          <option value="3">Vonlontariat</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3" style="text-align: center;">
+                      <label for="custom-select">Etablissement</label>
+                      <select class="custom-select" id="custom-select" style="text-align: center;">
+                        <option selected>--Choisir l'établissement--</option>
+                        <option value="1">IT University</option>
+                        <option value="2">DGI</option>
+                        <option value="3">Les Nounours</option>
+                      </select>
+                    </div>
+                    <div class="form-group mb-3" style="text-align: center;">
+                        <label for="custom-select">Type de contrat</label>
+                        <select class="custom-select" id="custom-select" style="text-align: center;">
+                          <option selected>--Choisir le type de contrat--</option>
+                          <option value="1">Cursus universitaire</option>
+                          <option value="2">Stage</option>
+                          <option value="3">CDI</option>
+                        </select>
+                      </div>
+                    <div class="form-group mb-3" style="text-align: center;">
+                        <label for="custom-select">Date début</label>
+                        <input type="date" name="" id="" class="form-control">
+                    </div>
+                    <div class="form-group mb-3" style="text-align: center;">
+                        <label for="custom-select">Date fin</label>
+                        <input type="date" name="" id="" class="form-control">
+                    </div>
+                  
+                    <div class="form-group mb-3 d-flex align-items-end">
+                      <button class="btn btn-outline-secondary mt-auto" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                        <i class="fe fe-search fe-16"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                    <button class="btn  btn-primary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                      <i class="fe fe-plus fe-16"></i> Ajouter
+                    </button>
+                    
+                    <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="varyModalLabel">Nouveau parcours</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Etablissement:</label>
+
+                                    <select class="custom-select" id="custom-select">
+                                    <option selected>--Choisir l'établissement--</option>
+                                    <option value="1">ITUniversity</option>
+                                    <option value="2">Les Nounours</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Type de contrat:</label>
+
+                                    <select class="custom-select" id="custom-select">
+                                    <option selected>--Choisir le type de contrat--</option>
+                                    <option value="1">Cursus universitaire</option>
+                                    <option value="2">Stage</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Position:</label>
+
+                                    <select class="custom-select" id="custom-select">
+                                    <option selected>--Choisir la position--</option>
+                                    <option value="1">Etudiante</option>
+                                    <option value="2">Dev Full Stack</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Date début:</label>
+                                    <input type="date" name="" id="" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Date fin:</label>
+                                    <input type="date" name="" id="" class="form-control">
+                                </div>                              
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn mb-2 btn-primary">Ajouter</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <p class="card-text" style="text-align: center;">Vous pouvez voir ici la liste des parcours.</p>
+                <div class="text-end mb-3">
+                <button class="btn btn-outline-success" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                    <i class="fe fe-check fe-16"></i> Tout valider
+                </button>
+                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                    <i class="fe fe-trash fe-16"></i> Supprimer tout
+                </button>
+                </div>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="chall">
+                          <label class="custom-control-label" for="d1"></label>
+                        </div>
+                      </th>
+                      <th style="text-align: center;">Etablissement</th>
+                      <th style="text-align: center;">Type de parcours</th>
+                      <th style="text-align: center;">Type de contrat</th>
+                      <th style="text-align: center;">Position</th>
+                      <th style="text-align: center;">Preuve</th>
+                      <!-- <th style="text-align: center;">Description</th> -->
+                      <!-- <th style="text-align: center;">Lien</th> -->
+                      <!-- <th style="text-align: center;">Résultats</th> -->
+                      <th style="text-align: center;">Date début</th>
+                      <th style="text-align: center;">Date fin</th>
+                      <th style="text-align: center;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="d1">
+                              <label class="custom-control-label" for="d1"></label>
+                            </div>
+                          </td>
+                      <td style="text-align: center;">IT University</td>
+                      <td style="text-align: center;">Académique</td>
+                      <td style="text-align: center;">Cursus universitaire</td>
+                      <td style="text-align: center;">Etudiante</td>
+                      <td style="text-align: center;">Fichier</td>
+                      <!-- <td style="text-align: center;">Assez-Bien</td> -->
+                      <td style="text-align: center;">18-10-2021</td>
+                      <td style="text-align: center;">22-11-2024</td>
+                      <td>
+                        <div class="dropdown" style="text-align: center;">
+                            <button class="btn btn-sm btn-success"><i class="fe fe-check fe-16"></i></button>
+                            <button class="btn btn-sm btn-warning"><i class="fe fe-edit fe-16"></i></button>
+                            <button class="btn btn-sm btn-primary"><i class="fe fe-eye fe-16"></i></button>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#verticalModal" ><i class="fe fe-trash fe-16"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="d1">
+                              <label class="custom-control-label" for="d1"></label>
+                            </div>
+                          </td>
+                      <td style="text-align: center;">DGI</td>
+                      <td style="text-align: center;">Professionnelle</td>
+                      <td style="text-align: center;">Stage</td>
+                      <td style="text-align: center;">Dev Full</td>
+                      <td style="text-align: center;">Fichier</td>
+                      <!-- <td style="text-align: center;">Assez-Bien</td> -->
+                      <td style="text-align: center;">13-08-2024</td>
+                      <td style="text-align: center;">21-11-2024</td>
+                      <td>
+                        <div class="dropdown" style="text-align: center;">
+                            <button class="btn btn-sm btn-success"><i class="fe fe-check fe-16"></i></button>
+                            <button class="btn btn-sm btn-warning"><i class="fe fe-edit fe-16"></i></button>
+                            <button class="btn btn-sm btn-primary"><i class="fe fe-eye fe-16"></i></button>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#verticalModal" ><i class="fe fe-trash fe-16"></i></button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="verticalModal" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="verticalModalTitle">Suppression d'une établissement</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">Voulez-vous vraiment supprimer <b>"Cursus secondaire"</b> de votre liste? </div>
+      <div class="modal-footer">
+        <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Non</button>
+        <button type="button" class="btn mb-2 btn-success">Oui</button>
+      </div>
+    </div>
+  </div>
+</div>
