@@ -7,6 +7,7 @@ import routes_position from './src/routes/admin/accueil/routes.position.js';
 import routes_description from './src/routes/admin/accueil/routes.description.js';
 import routes_utilisateur from './src/routes/admin/accueil/routes.utilisateur.js';
 import routes_parcours from './src/routes/admin/parcours/routes.etablissement.js';
+import routes_projets from './src/routes/admin/projets/routes.projets.js';
 import accueil from './src/routes/admin/accueil/routes.utilisateur.js';
 import projets from './src/routes/admin/projets.js';
 import apiRoutes from './src/routes/api/api.routes.js';
@@ -38,6 +39,7 @@ app.use('/testapi', routes_position);
 app.use('/testapi', routes_utilisateur);
 app.use('/testapi', routes_description);
 app.use('/testapi', routes_parcours);
+app.use('/testapi', routes_projets);
 
 // Démarrer le serveur
 app.listen(port, () => {

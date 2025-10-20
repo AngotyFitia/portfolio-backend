@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
-        <h2 class="page-title">Type de parcours</h2>
-        <p> <a href="/testapi/listesParcours">Parcours</a>  &gt; <a href="/testapi/typesParcours">Types de parcours</a> </p>
+        <h2 class="page-title">Type de projets</h2>
+        <p> <a href="/testapi/listesProjets">Projets</a>  &gt; <a href="/testapi/typesProjets">Types de projets</a> </p>
         <div class="row">
           <!-- simple table -->
           <div class="col-md-12 my-4">
@@ -19,7 +19,7 @@
                     <div class="form-group mb-3" style="text-align: center;">
                       <label for="custom-select">Etat</label>
                       <select class="custom-select" id="custom-select">
-                        <option selected>--Choisir l'état du parcours--</option>
+                        <option selected>--Choisir l'état du contrat--</option>
                         <option value="1">Validé</option>
                         <option value="2">En attente</option>
                         <option value="3">Supprimé</option>
@@ -41,7 +41,7 @@
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="varyModalLabel">Nouveau type de parcours</h5>
+                            <h5 class="modal-title" id="varyModalLabel">Nouveau type de projet</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -62,7 +62,7 @@
                       </div>
                     </div>
                   </div>
-                <p class="card-text" style="text-align: center;">Vous pouvez voir ici la liste des types de parcours.</p>
+                <p class="card-text" style="text-align: center;">Vous pouvez voir ici la liste des types de projets.</p>
                 <div class="text-end mb-3">
                   <button class="btn btn-outline-danger" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
                     <i class="fe fe-trash fe-16"></i> Supprimer tout
@@ -91,8 +91,8 @@
                               <label class="custom-control-label" for="d1"></label>
                             </div>
                           </td>
-                      <td style="text-align: center;">TYP_001</td>
-                      <td style="text-align: center;">Académique</td>
+                      <td style="text-align: center;">PRJ_001</td>
+                      <td style="text-align: center;">Application web</td>
                       <td>
                         <div class="dropdown" style="text-align: center;">
                             <button class="btn  btn-success"><i class="fe fe-check fe-16"></i></button>
@@ -108,8 +108,8 @@
                               <label class="custom-control-label" for="d1"></label>
                             </div>
                           </td>
-                      <td style="text-align: center;">TYP_002</td>
-                      <td style="text-align: center;">Professionnelle</td>
+                      <td style="text-align: center;">PRJ_002</td>
+                      <td style="text-align: center;">Projet internationale</td>
                       <td>
                         <div class="dropdown" style="text-align: center;">
                             <button class="btn  btn-success"><i class="fe fe-check fe-16"></i></button>
@@ -136,7 +136,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">Voulez-vous vraiment supprimer <b>"Académique"</b> de votre liste? </div>
+      <div class="modal-body">Voulez-vous vraiment supprimer <b>"Application web"</b> de votre liste? </div>
       <div class="modal-footer">
         <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Non</button>
         <button type="button" class="btn mb-2 btn-success">Oui</button>
