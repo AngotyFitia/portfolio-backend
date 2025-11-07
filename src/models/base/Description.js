@@ -1,4 +1,4 @@
-import pool from '../../db.config.local.js';
+import pool from '../../db.config.js';
 
 export default class Description {
   constructor(data ={}) {

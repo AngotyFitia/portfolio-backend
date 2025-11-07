@@ -1,4 +1,4 @@
-import pool from '../../db.config.local.js';
+import pool from '../../db.config.js';
 
 export default class Position {
   constructor({ id_position, intitule, etat, color, etatVue,boutonVue  }) {
