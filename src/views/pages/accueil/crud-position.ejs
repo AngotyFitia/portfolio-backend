@@ -11,17 +11,18 @@
             <div class="card shadow">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
+                  <form method="get" action="/positions" class="form-inline mb-3">
                     <div class="d-flex align-items-end flex-wrap gap-2">
                       <div class="form-group mb-3">
                         <label for="example-email">Qu'est ce que vous recherchez ?</label>
-                        <input type="text"  class="form-control" name="intitule">
+                        <input type="text"  class="form-control" name="intitule" value="<%= search?.intitule || '' %>">
                       </div>    
                       <div class="form-group mb-3" style="text-align: center;">
                         <label for="custom-select">Etat</label>
                         <select class="custom-select" id="custom-select" style="text-align: center;" name="etat">
-                          <option selected value="1">--Choisir l'état de la position--</option>
+                          <option selected value="all">--Choisir l'état de la position--</option>
                           <option value="5">Validé</option>
-                          <option value="1">En attente</option>
+                          <option value="0">En attente</option>
                           <option value="2">Supprimé</option>
                         </select>
                       </div>
@@ -31,6 +32,8 @@
                         </button>
                       </div>
                     </div>
+                    <a href="/positions" class="btn btn-outline-secondary ml-2">Réinitialiser</a>
+                  </form>
                   <button class="btn  btn-primary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
                     <i class="fe fe-plus fe-16"></i> Ajouter
                   </button>
@@ -64,16 +67,20 @@
 
                 <% if(positions.length > 0) { %>
                   <div class="text-end mb-3">
-                    <button class="btn btn-outline-success" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo"><i class="fe fe-check fe-16"></i> Tout valider</button>
-                    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo"><i class="fe fe-trash fe-16"></i> Supprimer tout</button>
-                  </div>
+                    <button id="btn-validate-all" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#validateAllModal">
+                      <i class="fe fe-check fe-16"></i> Tout valider
+                    </button>
+                                        <button id="btn-delete-all" type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteAllModal">
+                      <i class="fe fe-trash fe-16"></i> Supprimer tout
+                    </button>
+                           </div>
                   <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>
                           <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="chall">
-                            <label class="custom-control-label" for="d1"></label>
+                            <label class="custom-control-label" for="chall"></label>
                           </div>
                         </th>
                         <th style="text-align: center;">ID</th>
@@ -87,8 +94,8 @@
                       <tr>
                         <td>
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="d1">
-                            <label class="custom-control-label" for="d1"></label>
+                            <input type="checkbox" class="custom-control-input checkbox-item" id="chk-<%= p.idPosition %>" value="<%= p.idPosition %>">
+                            <label class="custom-control-label" for="chk-<%= p.idPosition %>"></label>
                           </div>
                         </td>
                         <td style="text-align: center;"><%= p.idPosition %></td>
@@ -105,6 +112,27 @@
                       <% }) %>
                     </tbody>
                   </table>
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center mt-3">
+                      <% if (pagination.currentPage > 1) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= pagination.currentPage - 1 %><% if (search.intitule) { %>&intitule=<%= search.intitule %><% } %><% if (search.etat) { %>&etat=<%= search.etat %><% } %>">Précédent</a>
+                        </li>
+                      <% } %>
+                  
+                      <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+                        <li class="page-item <%= pagination.currentPage === i ? 'active' : '' %>">
+                          <a class="page-link" href="?page=<%= i %><% if (search.intitule) { %>&intitule=<%= search.intitule %><% } %><% if (search.etat) { %>&etat=<%= search.etat %><% } %>"><%= i %></a>
+                        </li>
+                      <% } %>
+                  
+                      <% if (pagination.currentPage < pagination.totalPages) { %>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<%= pagination.currentPage + 1 %><% if (search.intitule) { %>&intitule=<%= search.intitule %><% } %><% if (search.etat) { %>&etat=<%= search.etat %><% } %>">Suivant</a>
+                        </li>
+                      <% } %>
+                    </ul>
+                  </nav>
                   <div class="btn-group mr-16" role="group" aria-label="First group">
                     <button type="button" class="btn mb-2 btn-secondary"><i class="fe fe-arrow-left fe-16"></i></button>
                     <button type="button" class="btn mb-2 btn-secondary">1</button>
@@ -169,6 +197,48 @@
       </div>
     </div>
   </div>
+  <!-- Modal de confirmation de suppression multiple -->
+<div class="modal fade" id="deleteAllModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteAllModalLabel">Confirmer la suppression</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment supprimer toutes les positions sélectionnées ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteAll">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation de validation multiple -->
+<div class="modal fade" id="validateAllModal" tabindex="-1" role="dialog" aria-labelledby="validateAllModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="validateAllModalLabel">Confirmer la validation</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voulez-vous vraiment valider toutes les positions sélectionnées ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-success" id="confirmValidateAll">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <!-- scripts pour les modals(validation, modification et suppression) -->
   <script>
@@ -265,5 +335,85 @@
             .catch(err => console.error("Erreur fetch:", err));
         });
     });
+
+    $('#chall').on('change', function() {
+    $('.checkbox-item').prop('checked', this.checked);
+  });
+
+$('#chall').on('change', function() {
+  $('.checkbox-item').prop('checked', this.checked);
+});
+
+  let idsToDelete = [];
+  $('#btn-delete-all').on('click', function() {
+    // Récupérer les IDs cochés
+    idsToDelete = $('.checkbox-item:checked').map(function() {
+      return $(this).val();
+    }).get();
+
+    if (idsToDelete.length === 0) {
+      $('#deleteAllModal .modal-body').html("Veuillez cocher au moins une position à supprimer.");
+      $('#confirmDeleteAll').hide();
+    } else {
+      $('#deleteAllModal .modal-body').html("Voulez-vous vraiment supprimer toutes les positions sélectionnées ?");
+      $('#confirmDeleteAll').show();
+    }
+  });
+
+  $('#confirmDeleteAll').on('click', async function() {
+    try {
+      const res = await fetch('/positions/delete-all', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: idsToDelete })
+      });
+
+      if (res.ok) {
+        $('#deleteAllModal').modal('hide');
+        setTimeout(() => location.reload(), 500);
+      } else {
+        alert("Erreur lors de la suppression.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erreur de communication avec le serveur.");
+    }
+  });
+
+  let idsToValidate = [];
+  $('#btn-validate-all').on('click', function() {
+    // Récupérer les IDs cochés
+    idsToValidate = $('.checkbox-item:checked').map(function() {
+      return $(this).val();
+    }).get();
+
+    if (idsToValidate.length === 0) {
+      $('#validateAllModal .modal-body').html("Veuillez cocher au moins une position à valider.");
+      $('#confirmValidateAll').hide();
+    } else {
+      $('#validateAllModal .modal-body').html("Voulez-vous vraiment valider toutes les positions sélectionnées ?");
+      $('#confirmValidateAll').show();
+    }
+  });
+
+  $('#confirmValidateAll').on('click', async function() {
+    try {
+      const res = await fetch('/positions/validate-all', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: idsToValidate })
+      });
+
+      if (res.ok) {
+        $('#validateAllModal').modal('hide');
+        setTimeout(() => location.reload(), 500);
+      } else {
+        alert("Erreur lors de la validation.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erreur de communication avec le serveur.");
+    }
+  });
   </script>
 </body>

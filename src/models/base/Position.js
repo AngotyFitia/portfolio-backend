@@ -1,13 +1,10 @@
 import pool from '../../db.config.js';
 
 export default class Position {
-  constructor({ id_position, intitule, etat, color, etatVue,boutonVue  }) {
-    this.idPosition = id_position;
+  constructor({ id_position, intitule, etat }) {
+    this.id_position = id_position;
     this.intitule = intitule;
     this.etat = etat;
-    this.etatVue = etatVue;
-    this.color = color;
-    this.boutonVue = boutonVue;
   }
 
   static async exception(){
@@ -21,23 +18,79 @@ export default class Position {
     return new Position(result.rows[0]);
   }
 
-  static async findAll() {
-    const result = await pool.query('SELECT * FROM position  ORDER BY id_position ASC LIMIT 4');
-    // console.log(result);
-    // console.log(result.rows.map(row => new Position(row).etat));
-    const element = result.rows.map(row => new Position(row).etat);
-    const position = result.rows.map(row => new Position(row));
-    for(let i=0; i<=element.length; i++){
-      if(element[i]==1){
-        position[i].color = "orange";
-        position[i].etatVue = "en attente";
-      }else if(element[i]==5){
-        position[i].color = "green";
-        position[i].etatVue= "validé"
-        position[i].boutonVue = "none";
-      }
+  static formatEtat(position) {
+    if (position.etat == 1) {
+      position.color = "orange";
+      position.etatVue = "en attente";
+    } else if (position.etat == 5) {
+      position.color = "green";
+      position.etatVue = "validé";
+      position.boutonVue = "none";
     }
     return position;
+  }
+
+  static async findAll(limit = 5, offset = 0) {
+    const result = await pool.query(
+      'SELECT * FROM position ORDER BY id_position ASC LIMIT $1 OFFSET $2',
+      [limit, offset]
+    );
+    return result.rows.map(row => this.formatEtat(new Position(row)));
+  }
+
+  static async countAll() {
+    const result = await pool.query('SELECT COUNT(*) FROM position');
+    return parseInt(result.rows[0].count, 10);
+  }
+
+  static async findFiltered({ intitule, etat }, limit = 5, offset = 0) {
+    let query = 'SELECT * FROM position';
+    let conditions = [];
+    let params = [];
+
+    if (intitule && intitule.trim() !== '') {
+      params.push(`%${intitule.trim()}%`);
+      conditions.push(`intitule ILIKE $${params.length}`);
+    }
+
+    if (etat && etat !== 'all') {
+      params.push(etat);
+      conditions.push(`etat = $${params.length}`);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    params.push(limit);
+    params.push(offset);
+    query += ` ORDER BY id_position ASC LIMIT $${params.length - 1} OFFSET $${params.length}`;
+
+    const result = await pool.query(query, params);
+    return result.rows.map(row => this.formatEtat(new Position(row)));
+  }
+
+  static async countFiltered({ intitule, etat }) {
+    let query = 'SELECT COUNT(*) FROM position';
+    let conditions = [];
+    let params = [];
+
+    if (intitule && intitule.trim() !== '') {
+      params.push(`%${intitule.trim()}%`);
+      conditions.push(`intitule ILIKE $${params.length}`);
+    }
+
+    if (etat && etat !== 'all') {
+      params.push(etat);
+      conditions.push(`etat = $${params.length}`);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    const result = await pool.query(query, params);
+    return parseInt(result.rows[0].count, 10);
   }
 
   static async findById(id) {
