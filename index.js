@@ -8,6 +8,7 @@ import expressLayouts from "express-ejs-layouts";
 import position from './src/controllers/accueil/position-controller.js';
 import utilisateur from './src/controllers/accueil/utilisateur-controller.js';
 import description from './src/controllers/accueil/description-controller.js';
+import testbase from './src/routes/api/api.routes.js';
 
 
 const app = express();
@@ -32,7 +33,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 // --- services internes ---
-app.use('/', [ position, utilisateur, description]);
+app.use('/', [ position, utilisateur, description, testbase]);
 
 // // --- Gestion des erreurs 404 ---
 // app.use((req, res) => { 
