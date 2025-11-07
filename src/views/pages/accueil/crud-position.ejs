@@ -1,133 +1,269 @@
-<div class="container-fluid">
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
         <h2 class="page-title">Positions</h2>
-        <p> <a href="/utilisateurs">Accueil</a>  &gt; <a href="/testapi/positions">Positions</a> </p>
+        <!-- <p> <a href="/utilisateurs">Accueil</a>  &gt; <a href="/testapi/positions">Positions</a> </p> -->
         <div class="row">
-          <!-- simple table -->
           <div class="col-md-12 my-4">
             <div class="card shadow">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div class="d-flex align-items-end flex-wrap gap-2">
-                    <!-- Barre de recherche -->
-                    <div class="form-group mb-3">
-                      <label for="example-email">Qu'est ce que vous recherchez ?</label>
-                      <input type="email" id="example-email" name="example-email" class="form-control" placeholder="Tapez ici...">
-                    </div>    
-                  
-                    <div class="form-group mb-3" style="text-align: center;">
-                      <label for="custom-select">Etat</label>
-                      <select class="custom-select" id="custom-select">
-                        <option selected>--Choisir l'état de la position--</option>
-                        <option value="1">Validée</option>
-                        <option value="2">En attente</option>
-                        <option value="3">Supprimée</option>
-                      </select>
+                    <div class="d-flex align-items-end flex-wrap gap-2">
+                      <div class="form-group mb-3">
+                        <label for="example-email">Qu'est ce que vous recherchez ?</label>
+                        <input type="text"  class="form-control" name="intitule">
+                      </div>    
+                      <div class="form-group mb-3" style="text-align: center;">
+                        <label for="custom-select">Etat</label>
+                        <select class="custom-select" id="custom-select" style="text-align: center;" name="etat">
+                          <option selected value="1">--Choisir l'état de la position--</option>
+                          <option value="5">Validé</option>
+                          <option value="1">En attente</option>
+                          <option value="2">Supprimé</option>
+                        </select>
+                      </div>
+                      <div class="form-group mb-3 d-flex align-items-end">
+                        <button  type="submit" class="btn btn-outline-secondary mt-auto">
+                          <i class="fe fe-search fe-16"></i>
+                        </button>
+                      </div>
                     </div>
-                  
-                    <div class="form-group mb-3 d-flex align-items-end">
-                      <button class="btn btn-outline-secondary mt-auto" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
-                        <i class="fe fe-search fe-16"></i>
-                      </button>
-                    </div>
-                  </div>
-                  
-                    <button class="btn  btn-primary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
-                      <i class="fe fe-plus fe-16"></i> Ajouter
-                    </button>
-                    
-                    <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
+                  <button class="btn  btn-primary" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
+                    <i class="fe fe-plus fe-16"></i> Ajouter
+                  </button>
+                  <div class="modal fade" id="varyModal" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <form action="/new-position" method="post">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="varyModalLabel">Nouvelle position</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                           </div>
                           <div class="modal-body">
-                            <form>
                               <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Intitule:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <input type="text" class="form-control" id="recipient-name" name="intitule">
                               </div>
-                            </form>
-                          </div>
+                            </div>
                           <div class="modal-footer">
                             <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Fermer</button>
-                            <button type="button" class="btn mb-2 btn-primary">Ajouter</button>
+                            <button type="submit" class="btn mb-2 btn-primary">Ajouter</button>
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
-                <p class="card-text" style="text-align: center;">Vous pouvez voir ici la liste des positions.</p>
-                <div class="text-end mb-3">
-                  <button class="btn btn-outline-danger" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo">
-                    <i class="fe fe-trash fe-16"></i> Supprimer tout
-                  </button>
                 </div>
-                
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="chall">
-                          <label class="custom-control-label" for="d1"></label>
-                        </div>
-                      </th>
-                      <th style="text-align: center;">ID</th>
-                      <th style="text-align: center;">Intitule</th>
-                      <th style="text-align: center;">Status</th>
-                      <th style="text-align: center;">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="d1">
-                          <label class="custom-control-label" for="d1"></label>
-                        </div>
-                      </td>
-                      <td style="text-align: center;">PS001_A</td>
-                      <td style="text-align: center;">Développeuse Full-Stack</td>
-                      <td style="text-align: center; color: orange;">En attente</td>
-                      <td>
-                        <div class="dropdown" style="text-align: center;">
-                            <button class="btn  btn-success"><i class="fe fe-check fe-16"></i></button>
-                            <button class="btn  btn-warning"><i class="fe fe-edit fe-16"></i></button>
-                            <button class="btn  btn-danger" data-toggle="modal" data-target="#verticalModal" ><i class="fe fe-trash fe-16"></i></button>
-                          </div>
-                      </td>
 
-                      
-                    </tr>
-                  </tbody>
-                </table>
+                <% if(positions.length == 0) {%> 
+                  <p class="card-text" style="text-align: center;">Aucune position.</p>
+                <% }%>
+
+                <% if(positions.length > 0) { %>
+                  <div class="text-end mb-3">
+                    <button class="btn btn-outline-success" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo"><i class="fe fe-check fe-16"></i> Tout valider</button>
+                    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#varyModal" data-whatever="@mdo"><i class="fe fe-trash fe-16"></i> Supprimer tout</button>
+                  </div>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="chall">
+                            <label class="custom-control-label" for="d1"></label>
+                          </div>
+                        </th>
+                        <th style="text-align: center;">ID</th>
+                        <th style="text-align: center;">Intitule</th>
+                        <!-- <th style="text-align: center;">Status</th> -->
+                        <th style="text-align: center;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% positions.forEach(p => { %>
+                      <tr>
+                        <td>
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="d1">
+                            <label class="custom-control-label" for="d1"></label>
+                          </div>
+                        </td>
+                        <td style="text-align: center;"><%= p.idPosition %></td>
+                        <td style="text-align: center;"><%= p.intitule %></td>
+                        <!-- <td style="text-align: center; color: <%= p.color %>" ><%= p.etatVue %></td> -->
+                        <td>
+                          <div class="dropdown" style="text-align: center;">
+                              <button class="btn  btn-success" style="display: <%= p.boutonVue%>" data-toggle="modal" data-target="#modalValidation" data-id="<%= p.idPosition %>" data-intitule="<%= p.intitule %>"><i class="fe fe-check fe-16"></i></button>
+                              <button class="btn  btn-warning"  data-toggle="modal" data-target="#modalModification" data-id="<%= p.idPosition %>" data-intitule="<%= p.intitule %>"><i class="fe fe-edit fe-16"></i></button>
+                              <button class="btn btn-danger"  style="display: <%= p.boutonVue%>" data-toggle="modal" data-target="#modalSuppression" data-id="<%= p.idPosition %>" data-intitule="<%= p.intitule %>"><i class="fe fe-trash fe-16"></i></button>
+                          </div>
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                  <div class="btn-group mr-16" role="group" aria-label="First group">
+                    <button type="button" class="btn mb-2 btn-secondary"><i class="fe fe-arrow-left fe-16"></i></button>
+                    <button type="button" class="btn mb-2 btn-secondary">1</button>
+                    <button type="button" class="btn mb-2 btn-secondary"><i class="fe fe-arrow-right fe-16"></i></button>
+                  </div>
+                <% } %>
               </div>
             </div>
           </div> 
         </div>
-    </div>
-</div>
-
-<div class="modal fade" id="verticalModal" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="verticalModalTitle">Suppression d'une position</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">Voulez-vous vraiment supprimer <b>"Développeuse Full-Stack"</b> de votre liste? </div>
-      <div class="modal-footer">
-        <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Non</button>
-        <button type="button" class="btn mb-2 btn-success">Oui</button>
       </div>
     </div>
   </div>
-</div>
+  <!-- les modals -->
+  <div class="modal fade" id="modalValidation" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="verticalModalTitle">Validation d'une position</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+          <div class="modal-body">Voulez-vous vraiment valider <b></b></div>
+          <div class="modal-footer">
+            <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Non</button>
+            <button type="button" class="btn mb-2 btn-success">Oui</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalModification" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="verticalModalTitle">Modification d'une position</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Intitule:</label>
+              <input type="text" class="form-control" id="recipient-name" name="intitule">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn mb-2 btn-success">Modifier</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalSuppression" tabindex="-1" role="dialog" aria-labelledby="verticalModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="verticalModalTitle">Suppression d'une position</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+          <div class="modal-body">Voulez-vous vraiment supprimer <b></b> de votre liste? </div>
+          <div class="modal-footer">
+            <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Non</button>
+            <button type="button" class="btn mb-2 btn-success">Oui</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scripts pour les modals(validation, modification et suppression) -->
+  <script>
+    $('#modalValidation').on('show.bs.modal', function (event) {
+      const button = $(event.relatedTarget); 
+      const id = button.data('id');
+      const intitule = button.data('intitule');
+      const modal = $(this);
+
+      console.log("Modal ouverte avec id =", id, "intitulé =", intitule);
+
+      // Mise à jour du texte de confirmation
+      modal.find('.modal-body').html(
+        `Voulez-vous vraiment valider <b>"${intitule}"</b> ?`
+      );
+
+      // Supprimer anciens handlers avant d'en ajouter un nouveau
+      modal.find('.btn-success')
+        .off('click')
+        .on('click', function() {
+          console.log("Bouton OUI cliqué, envoi requête vers /position/" + id);
+
+          fetch(`/validation/${id}`, { method: 'PUT' })
+            .then(res => {
+              console.log("Requête envoyée, status:", res.status);
+              location.reload();
+            })
+            .catch(err => console.error("Erreur fetch:", err));
+        });
+    });
+
+    $('#modalModification').on('show.bs.modal', function (event) {
+  const button = $(event.relatedTarget); 
+  const id = button.data('id');
+  const intitule = button.data('intitule');
+  const modal = $(this);
+
+  // Mettre la valeur actuelle dans l'input
+  modal.find('.modal-body').html(
+    `<input type="text" class="form-control" id="recipient-name" name="intitule" value="${intitule}">`
+  );
+
+  // Gestion du clic sur "Modifier"
+  modal.find('.btn-success')
+    .off('click')
+    .on('click', function() {
+      const newIntitule = modal.find('#recipient-name').val();
+
+      console.log(`Envoi modification id=${id}, intitule=${newIntitule}`);
+
+      fetch(`/editer/${id}/${newIntitule}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ intitule: newIntitule })
+      })
+      .then(res => {
+        if (res.ok) {
+          console.log("Modification réussie !");
+          window.location.href = '/positions'
+        } else {
+          console.error("Erreur serveur:", res.status);
+        }
+      })
+      .catch(err => console.error("Erreur fetch:", err));
+    });
+});
+   
+    $('#modalSuppression').on('show.bs.modal', function (event) {
+      const button = $(event.relatedTarget); 
+      const id = button.data('id');
+      const intitule = button.data('intitule');
+      const modal = $(this);
+
+      console.log("Modal ouverte avec id =", id, "intitulé =", intitule);
+
+      // Mise à jour du texte de confirmation
+      modal.find('.modal-body').html(
+        `Voulez-vous vraiment supprimer <b>"${intitule}"</b> de votre liste ?`
+      );
+
+      // Supprimer anciens handlers avant d'en ajouter un nouveau
+      modal.find('.btn-success')
+        .off('click')
+        .on('click', function() {
+          console.log("Bouton OUI cliqué, envoi requête vers /position/" + id);
+
+          fetch(`/position/${id}`, { method: 'DELETE' })
+            .then(res => {
+              console.log("Requête envoyée, status:", res.status);
+              location.reload();
+            })
+            .catch(err => console.error("Erreur fetch:", err));
+        });
+    });
+  </script>
+</body>
