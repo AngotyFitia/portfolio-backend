@@ -33,7 +33,6 @@ router.get('/positions', async (req, res) => {
   }
 });
 
-
 router.post('/positions', async (req, res) => {
   const { intitule } = req.body;
   const { etat } = req.body;

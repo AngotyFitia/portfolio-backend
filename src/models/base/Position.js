@@ -2,7 +2,7 @@ import pool from '../../db.config.js';
 
 export default class Position {
   constructor({ id_position, intitule, etat }) {
-    this.id_position = id_position;
+    this.idPosition = id_position;
     this.intitule = intitule;
     this.etat = etat;
   }
@@ -36,6 +36,11 @@ export default class Position {
       [limit, offset]
     );
     return result.rows.map(row => this.formatEtat(new Position(row)));
+  }
+
+  static async getPostionValidated() {
+    const result = await pool.query('SELECT * FROM position  WHERE etat =5 ORDER BY id_position',    );
+    return result.rows.map(row => new Position(row));
   }
 
   static async countAll() {
